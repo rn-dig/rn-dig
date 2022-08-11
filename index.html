@@ -167,13 +167,13 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 		let niz = pn_val * tk_val;
 		let vn = verh / niz;	
 		let dp = 100 / t_val * (1 - vn);
-		let ans = Math.abs(parseFloat(dp).toFixed(4)); 
+		let ans = parseFloat(dp).toFixed(4); 
         document.getElementById("verh").innerHTML = '('+pkm.value+' + '+pkb.value+') * (273 + '+tn.value+')';
         document.getElementById("niz").innerHTML = '('+pnm.value+' + '+pnb.value+') * (273 + '+tk.value+')';		
         document.getElementById("vr").innerHTML = t_val;			
         document.getElementById("dp").innerHTML =  ' = ' + ans + ' %';		
 		document.getElementById("answer").innerHTML = 'Падение давления = ' + ans + ' % в час';
-		if (ans > dop_val) {
+		if (Math.abs(ans) > dop_val) {
 			document.getElementById("sravn").innerHTML = 'НЕ В ДОПУСКЕ';
 			document.getElementById("sravn").style="font-size:20px;text-align:center;font-weight:bold;color:red";
 		} else {
