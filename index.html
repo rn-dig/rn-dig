@@ -122,6 +122,10 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	
 </body>
 <script>
+	document.addEventListener('keyup', function(event) {
+	alert('Key: ' + event.key);
+	alert('KeyCode: ' + event.keyCode);
+	}
 	tn.value = localStorage.getItem('tn');	
 	tk.value = localStorage.getItem('tk');	
 	pnm.value = localStorage.getItem('pnm');	
