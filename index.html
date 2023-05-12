@@ -60,7 +60,7 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
   <polygon points="34.884 47.183 42.062 47.183 42.062 91.868 34.884 91.868" clip-rule="evenodd" fill="#b3b31c" fill-rule="evenodd"/>
   <polygon points="43.531 55.237 50.861 55.237 50.861 91.868 43.531 91.868" clip-rule="evenodd" fill="#b3b31c" fill-rule="evenodd"/>
 </svg>
-</div>
+</div>	
 			</header>
 			<div class="row">	
 				<div class=".col-6 w-50">
@@ -163,10 +163,13 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 </body>
 <script>
 	let count = 0;
-	let startTime;
+	let startTime = 0;
 	let trigTime = 0;
 	let trigMinus = 0;
 	
+	const start = (val) => {
+	}
+
 	document.addEventListener('keydown', function(event) { // при нажатии клавиши
 		const element = document.activeElement;	
 		if (trigTime == 0) {
@@ -175,20 +178,44 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 		}
 		let endTime = new Date().getTime() / 1000;
 		let time = (endTime - startTime); // из мс получаем секунды
-		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);		
-		if (time >= 2 && element.type =='number') {			
+		if (time >= 2 && element.type =='number') {	
 			if (trigMinus == 0) {		
 				element.value = -parseFloat(element.value);  
 				trigMinus = 1;
 			}
 		}		
+		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);	
 	});
-	
+	document.addEventListener('touchstart', function(event) {
+		const element = event.srcElement.id;	
+		
+		if (trigTime == 0) {
+			startTime = new Date().getTime() / 1000;
+			trigTime = 1;
+			console.log(startTime);
+		}
+
+
+	});	
+
 	document.addEventListener('keyup', function(event) { // при отпускании клавиши
 		trigTime = 0;
 		trigMinus = 0;
 	});
-
+	document.addEventListener('touchend', function(event) { // при нажатии клавиши
+		let endTime = new Date().getTime() / 1000;
+		let time = (endTime - startTime); // из мс получаем секунды
+		if (time >= 2) {	
+			if (trigMinus == 0) {		
+				event.srcElement.value = -parseFloat(event.srcElement.value);  
+				trigMinus = 1;
+			}
+		}		
+		document.getElementById("key1").innerText = 'time: ' + time.toFixed(2);	
+		trigTime = 0;
+		trigMinus = 0;
+	});	
+	
 	tn.value = localStorage.getItem('tn');	
 	tk.value = localStorage.getItem('tk');	
 	pnm.value = localStorage.getItem('pnm');	
@@ -251,3 +278,5 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	}
 </script>
 </html>
+
+
