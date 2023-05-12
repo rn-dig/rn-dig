@@ -107,6 +107,7 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 				<div style="width:100%;">	
 					<div id="answer" style="font-weight:bold;font-size:20px;text-align:center;">Падение давления = -- % в час</div>		
 					<div id="sravn" style="font-weight:bold;font-size:20px;text-align:center;">--</div>	
+					<div id="key1" style="font-weight:bold;font-size:10px;text-align:center;">--</div>	
 				</div>
 			</div>
 			
@@ -117,15 +118,35 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 			</footer>
 		</div>	
 	</div>
-
-  
-	
 </body>
 <script>
-	document.addEventListener('keyup', function(event) {
-	console.log('Key: ' + event.key);
-	console.log('KeyCode: ' + event.keyCode);
+	let count = 0;
+	let startTime;
+	let trigTime = 0;
+	let trigMinus = 0;
+	
+	document.addEventListener('keydown', function(event) { // при нажатии клавиши
+		const element = document.activeElement;	
+		if (trigTime == 0) {
+			startTime = new Date().getTime() / 1000;
+			trigTime = 1;
+		}
+		let endTime = new Date().getTime() / 1000;
+		let time = (endTime - startTime); // из мс получаем секунды
+		if (time >= 2 && element.type =='number') {	
+			if (trigMinus == 0) {		
+				element.value = -parseFloat(element.value);  
+				trigMinus = 1;
+			}
+		}		
+		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);
 	});
+	
+	document.addEventListener('keyup', function(event) { // при отпускании клавиши
+		trigTime = 0;
+		trigMinus = 0;
+	});
+
 	tn.value = localStorage.getItem('tn');	
 	tk.value = localStorage.getItem('tk');	
 	pnm.value = localStorage.getItem('pnm');	
@@ -188,5 +209,3 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	}
 </script>
 </html>
-
-
