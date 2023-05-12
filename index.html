@@ -175,13 +175,13 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 		}
 		let endTime = new Date().getTime() / 1000;
 		let time = (endTime - startTime); // из мс получаем секунды
-		if (time >= 2 && element.type =='number') {	
+		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);		
+		if (time >= 2 && element.type =='number') {			
 			if (trigMinus == 0) {		
 				element.value = -parseFloat(element.value);  
 				trigMinus = 1;
 			}
 		}		
-		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);
 	});
 	
 	document.addEventListener('keyup', function(event) { // при отпускании клавиши
