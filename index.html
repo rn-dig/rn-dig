@@ -162,59 +162,40 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	</div>
 </body>
 <script>
-	let count = 0;
-	let startTime = 0;
-	let trigTime = 0;
-	let trigMinus = 0;
+
+	let onlongtouch; 
+	let timer;
+	let touchduration = 1000;
+	let id;
 	
-	const start = (val) => {
+	function touchstart(event) {
+		id = event.srcElement.id;
+		if (!timer) {
+			timer = setTimeout(onlongtouch, touchduration);
+		}
 	}
 
-	document.addEventListener('keydown', function(event) { // при нажатии клавиши
-		const element = document.activeElement;	
-		if (trigTime == 0) {
-			startTime = new Date().getTime() / 1000;
-			trigTime = 1;
+	function touchend() {
+		if (timer) {
+			clearTimeout(timer);
+			timer = null;
 		}
-		let endTime = new Date().getTime() / 1000;
-		let time = (endTime - startTime); // из мс получаем секунды
-		if (time >= 2 && element.type =='number') {	
-			if (trigMinus == 0) {		
-				element.value = -parseFloat(element.value);  
-				trigMinus = 1;
-			}
-		}		
-		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode + ' | time: ' + time.toFixed(2);	
+	}
+
+	onlongtouch = function() { 
+		timer = null;
+		document.getElementById(id).value = -parseFloat(document.getElementById(id).value);
+		document.getElementById('key1').innerText='ping\n'; 
+	};
+
+	document.addEventListener("DOMContentLoaded", function(event) { 
+		window.addEventListener("touchstart", touchstart, false);
+		window.addEventListener("touchend", touchend, false);
 	});
-	document.addEventListener('touchstart', function(event) {
-		const element = event.srcElement.id;	
-		
-		if (trigTime == 0) {
-			startTime = new Date().getTime() / 1000;
-			trigTime = 1;
-			console.log(startTime);
-		}
 
-
-	});	
-
-	document.addEventListener('keyup', function(event) { // при отпускании клавиши
-		trigTime = 0;
-		trigMinus = 0;
+	document.addEventListener('keydown', function(event) {
+		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode;	
 	});
-	document.addEventListener('touchend', function(event) { // при нажатии клавиши
-		let endTime = new Date().getTime() / 1000;
-		let time = (endTime - startTime); // из мс получаем секунды
-		if (time >= 2) {	
-			if (trigMinus == 0) {		
-				event.srcElement.value = -parseFloat(event.srcElement.value);  
-				trigMinus = 1;
-			}
-		}		
-		document.getElementById("key1").innerText = 'time: ' + time.toFixed(2);	
-		trigTime = 0;
-		trigMinus = 0;
-	});	
 	
 	tn.value = localStorage.getItem('tn');	
 	tk.value = localStorage.getItem('tk');	
@@ -278,5 +259,3 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	}
 </script>
 </html>
-
-
