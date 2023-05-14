@@ -192,10 +192,19 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 		window.addEventListener("touchstart", touchstart, false);
 		window.addEventListener("touchend", touchend, false);
 	});
-
-	document.addEventListener('keydown', function(event) {
-		document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode;	
+	
+	//document.addEventListener('keydown', function(event) {
+	//	document.getElementById("key1").innerText = 'Key: \"' + event.key + '\" | Code: ' + event.keyCode;	
+	//});
+	
+	document.getElementById('tn').addEventListener('textInput', function(event) {
+		console.log(event);
+		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + event.data.charCodeAt(0);		
 	});
+	document.getElementById('tk').addEventListener('textInput', function(event) {
+		console.log(event);
+		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + event.data.charCodeAt(0);			
+	});	
 	
 	tn.value = localStorage.getItem('tn');	
 	tk.value = localStorage.getItem('tk');	
