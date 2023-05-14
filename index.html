@@ -150,6 +150,7 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 					<div id="answer" style="font-weight:bold;font-size:20px;text-align:center;">Падение давления = -- % в час</div>		
 					<div id="sravn" style="font-weight:bold;font-size:20px;text-align:center;">--</div>	
 					<div id="key1" style="font-weight:bold;font-size:10px;text-align:center;">--</div>	
+					<div id="key2" style="font-weight:bold;font-size:10px;text-align:center;">--</div>	
 				</div>
 			</div>
 			
@@ -167,6 +168,7 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	let timer;
 	let touchduration = 1000;
 	let id;
+	let pointNum =0;
 	
 	function touchstart(event) {
 		id = event.srcElement.id;
@@ -185,7 +187,10 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	onlongtouch = function() { 
 		timer = null;
 		document.getElementById(id).value = -parseFloat(document.getElementById(id).value);
-		//document.getElementById('key1').innerText='ping\n'; 
+		document.getElementById('key2').innerText='--//--'; 
+		if (pointNum == 46) {
+			document.getElementById('key2').innerText='ping'; 		
+		}
 	};
 
 	document.addEventListener("DOMContentLoaded", function(event) { 
@@ -198,12 +203,14 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	//});
 	
 	document.getElementById('tn').addEventListener('textInput', function(event) {
-		console.log(event);
-		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + event.data.charCodeAt(0);		
+		//console.log(event);
+		pointNum = event.data.charCodeAt(0);
+		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + pointNum;		
 	});
 	document.getElementById('tk').addEventListener('textInput', function(event) {
-		console.log(event);
-		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + event.data.charCodeAt(0);			
+		//console.log(event);
+		pointNum = event.data.charCodeAt(0);
+		document.getElementById("key1").innerText = 'Key: \"' + event.data + '\" | Code: ' + pointNum;			
 	});	
 	
 	tn.value = localStorage.getItem('tn');	
