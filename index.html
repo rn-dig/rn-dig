@@ -250,8 +250,8 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 	}	
 	function getDp() {
 		document.getElementById("getdp").setAttribute("class", "btn btn-success");	
-		let tn_val = (parseFloat(tn.value) + 273).toFixed(2);
-		let tk_val = (parseFloat(tk.value) + 273).toFixed(2);
+		let tn_val = (parseFloat(tn.value) + 273.15).toFixed(2);
+		let tk_val = (parseFloat(tk.value) + 273.15).toFixed(2);
 		let pn_val = (parseFloat(pnm.value) + parseFloat(pnb.value)).toFixed(6);
 		let pk_val = (parseFloat(pkm.value) + parseFloat(pkb.value )).toFixed(6);
 		let t_val = parseInt(tisp.value);
@@ -261,8 +261,8 @@ root{--blue:#007bff;--indigo:#6610f2;--purple:#6f42c1;--pink:#e83e8c;--red:#dc35
 		let vn = verh / niz;	
 		let dp = 100 / t_val * (1 - vn);
 		let ans = parseFloat(dp).toFixed(4); 
-        document.getElementById("verh").innerHTML = '('+pkm.value+' + '+pkb.value+') * (273 + '+tn.value+')';
-        document.getElementById("niz").innerHTML = '('+pnm.value+' + '+pnb.value+') * (273 + '+tk.value+')';		
+        document.getElementById("verh").innerHTML = '('+pkm.value+' + '+pkb.value+') * (273.15 + '+tn.value+')';
+        document.getElementById("niz").innerHTML = '('+pnm.value+' + '+pnb.value+') * (273.15 + '+tk.value+')';		
         document.getElementById("vr").innerHTML = t_val;			
         document.getElementById("dp").innerHTML =  ' = ' + ans + ' %';		
 		document.getElementById("answer").innerHTML = 'Падение давления = ' + ans + ' % в час';
